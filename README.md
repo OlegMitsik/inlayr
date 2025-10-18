@@ -65,7 +65,7 @@ Please refer to [examples](./examples) for more functional use cases.
 Common runtime knobs (RPC endpoints, routing preferences, etc) are typically supplied by you at construction time.
 
 Currently supported configurations:
-- **RPCs** — 1rpc, ankr, solana
+- **RPCs** — ankr, 1rpc, solana
 - **Chains** — evm, solana
 - **Aggregators** — 0x, 1inch, jupiter, raydium
 
