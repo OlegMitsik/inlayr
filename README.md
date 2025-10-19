@@ -2,7 +2,7 @@
 
 _A modular, chain‑agnostic SDK for building and integrating crypto quoting and trading flows on DEXs._
 
-> **Status:** Experimental (v0.1.0). APIs may change before 1.0.
+> **Status:** Experimental (v0.1.1). APIs may change before 1.0.
 
 [![PyPI](https://img.shields.io/pypi/v/inlayr.svg)](https://pypi.org/project/inlayr/)
 [![Python](https://img.shields.io/pypi/pyversions/inlayr.svg)](https://pypi.org/project/inlayr/)
@@ -45,20 +45,34 @@ print (inlayr.__version__)
 ### High‑level sketch (pseudocode)
 
 ```python
-# Pseudocode / illustrative only
-# Actual class and method names may differ in your version.
+# Illustrative only. Actual class and method names may differ in your version.
 
 # 1) Import provider interface
-# from inlayr.provider import get_provider
+from inlayr.provider import get_provider
 
-# 2) Configure Chain, RPC, and Aggregator
-# provider = get_provider(chain = ..., chain_params = ..., rpc = ..., rpc_params = ..., aggregator = ..., aggregator_params = ...)
+# 2) Fetch your private key
+solana_pk = open(r"solana_pk").read()
 
-# 3) Perform operations (e.g. request a quote)
-# quote = provider.get_quote(source_token = ..., source_amount = ..., destination_token = ..., slippage = ...)
+# 3) Configure Chain, RPC, and Aggregator
+provider = get_provider(
+	chain = "solana",
+	chain_params = {"wallet_pk": solana_pk},
+	rpc = "solana",
+	rpc_params = {"chain_id": None},
+	aggregator = "jupiter",
+	aggregator_params = {}
+)
+
+# 4) Perform operations (e.g. request a quote)
+quote = provider.get_quote(
+	source_token = "4eDf52YYzL6i6gbZ6FXqrLUPXbtP61f1gPSFM66M4XHe",
+	source_amount = 1_000_000_000,
+	destination_token = "So11111111111111111111111111111111111111112",
+	slippage = 1000
+)
 ```
 
-Please refer to [examples](./examples) for more functional use cases.
+Please refer to [examples](https://github.com/OlegMitsik/inlayr/tree/main/examples) for more functional use cases.
 
 ## Configuration
 
@@ -94,7 +108,7 @@ We use **Semantic Versioning**. Until `1.0.0`, minor bumps may include small bre
 
 ## License
 
-Licensed under the **Apache 2.0** license. See [LICENSE](./LICENSE) for details.
+Licensed under the **Apache 2.0** license. See [LICENSE](https://github.com/OlegMitsik/inlayr/blob/main/LICENSE) for details.
 
 ## Links
 
