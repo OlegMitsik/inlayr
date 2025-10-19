@@ -68,7 +68,7 @@ quote = provider.get_quote(
 	source_token = "4eDf52YYzL6i6gbZ6FXqrLUPXbtP61f1gPSFM66M4XHe",
 	source_amount = 1_000_000_000,
 	destination_token = "So11111111111111111111111111111111111111112",
-	slippage = 1000
+	slippage = 1_000
 )
 ```
 
@@ -82,6 +82,10 @@ Currently supported configurations:
 - **RPCs** — ankr, 1rpc, solana
 - **Chains** — evm, solana
 - **Aggregators** — 0x, 1inch, jupiter, raydium
+
+## Security
+
+Private keys are provided only at runtime. They are never logged, transmitted, or stored by us.
 
 ## Type hints
 
