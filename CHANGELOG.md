@@ -19,6 +19,7 @@ All notable changes to **inlayr** will be documented in this file.
 ## [0.1.0] - 2025-10-08
 ## [0.1.1] - 2025-10-19
 ## [0.1.2] - 2025-10-20
+## [0.1.21] - 2025-10-21
 
 ### Added
 - First public release of **inlayr**.
