@@ -23,7 +23,7 @@ If you just want the docs: jump to **[Quickstart](#quickstart)** or **[Installat
 
 ## Disclaimer
 
-> This project is for informational and development purposes only and does not constitute financial or investment advice.  
+> This project is for informational and development purposes only and does not constitute financial advice.  
 > The software is provided “as is” without warranties, and the authors/contributors assume no responsibility or liability for any losses, damages, or outcomes resulting from its use.  
 > Use at your own risk and comply with applicable laws.
 
