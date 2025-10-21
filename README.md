@@ -21,6 +21,12 @@ If you just want the docs: jump to **[Quickstart](#quickstart)** or **[Installat
 
 ---
 
+## Disclaimer
+
+> This project is for informational and development purposes only and does not constitute financial or investment advice.
+> The software is provided “as is” without warranties, and the authors/contributors assume no responsibility or liability for any losses, damages, or outcomes resulting from its use.
+> Use at your own risk and comply with applicable laws.
+
 ## Installation
 
 The base install:
@@ -33,7 +39,8 @@ Supported Python: **3.9+**
 
 ## Quickstart
 
-> The exact API surface may evolve before 1.0. The snippets below show the intended usage patterns while staying dependency‑light.
+> The exact API surface may evolve before 1.0.
+> The snippets below show the intended usage patterns while staying dependency‑light.
 
 ### Verify install
 
@@ -109,12 +116,6 @@ pytest -q
 ## Versioning
 
 We use **Semantic Versioning**. Until `1.0.0`, minor bumps may include small breaking changes as we refine the API.
-
-## Disclaimer
-
-This project is for informational and development purposes only and does not constitute financial or investment advice.
-The software is provided “as is” without warranties, and the authors/contributors assume no responsibility or liability for any losses, damages, or outcomes resulting from its use.
-Use at your own risk and comply with applicable laws.
 
 ## License
 
