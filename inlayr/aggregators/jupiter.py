@@ -9,22 +9,23 @@ Dependencies
 
 from __future__ import annotations
 
-from ..utils.constants import ConstDict
+from ..utils.http import create_session_with_retries, DEFAULT_TIMEOUT
 
-import base58, base64
+import base64
 
 from solana.rpc.api import VersionedTransaction
 
-import requests, json
+import json
 
 class Aggregator:
-    def __init__(self, headers: dict = {}):
+    def __init__(self, headers: dict = {}, timeout: int = DEFAULT_TIMEOUT):
         self.name = "Jupiter"
 
         self.quote_api = "https://quote-api.jup.ag/v6/quote"
         self.swap_api = "https://quote-api.jup.ag/v6/swap"
 
-        self.session = requests.Session()
+        self.session = create_session_with_retries(timeout=timeout)
+        self.timeout = timeout
         self.headers = headers
 
     def get_quote(self, **kwargs):
@@ -38,7 +39,13 @@ class Aggregator:
         if ("slippage" in kwargs):
             params["slippageBps"] = kwargs.get("slippage")
 
-        response = self.session.get(self.quote_api, params=params, headers=self.headers)
+        response = self.session.get(
+            self.quote_api, 
+            params=params, 
+            headers=self.headers,
+            timeout=self.timeout
+        )
+        response.raise_for_status()
         
         return response.json()
 
@@ -51,7 +58,13 @@ class Aggregator:
             "quoteResponse": quote,        
         })
 
-        response = self.session.post(self.swap_api, data=params, headers={"Content-Type": "application/json", **self.headers})
+        response = self.session.post(
+            self.swap_api, 
+            data=params, 
+            headers={"Content-Type": "application/json", **self.headers},
+            timeout=self.timeout
+        )
+        response.raise_for_status()
         response_data = response.json()
 
         trx_decoded = base64.b64decode(response_data.get("swapTransaction"))

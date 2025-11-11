@@ -3,23 +3,20 @@ Implementation of 0x connector.
 
 Dependencies
 ------------
-* `requests` (HTTP calls to provider)
 * `web3` (interaction with chains)
-* `eth_account` (managing private keys)
+* `eth_keys` (managing private keys)
 """
 
 from __future__ import annotations
 
-from ..utils.constants import ConstDict
+from ..utils.http import create_session_with_retries, DEFAULT_TIMEOUT
 
-import requests, json
-from web3 import Web3, HTTPProvider
+from web3 import Web3
 
-from eth_account import Account
 from eth_keys import keys
 
 class Aggregator:
-    def __init__(self, headers: dict = {}):
+    def __init__(self, headers: dict = {}, timeout: int = DEFAULT_TIMEOUT):
         self.name = "0x"
 
         self.quote_api = "https://api.0x.org/swap/permit2/quote"
@@ -27,7 +24,8 @@ class Aggregator:
 
         self.spender = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
 
-        self.session = requests.Session()
+        self.session = create_session_with_retries(timeout=timeout)
+        self.timeout = timeout
         self.headers = headers
 
     def get_quote(self, **kwargs):
@@ -45,7 +43,13 @@ class Aggregator:
         if ("slippage" in kwargs):
             params["slippageBps"] = kwargs.get("slippage")
 
-        response = self.session.get(self.quote_api, params = params, headers = self.headers)
+        response = self.session.get(
+            self.quote_api, 
+            params=params, 
+            headers=self.headers,
+            timeout=self.timeout
+        )
+        response.raise_for_status()
         
         return response.json()
 

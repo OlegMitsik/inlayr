@@ -8,8 +8,6 @@ Dependencies
 
 from __future__ import annotations
 
-from ..utils.constants import ConstDict
-
 from solana.rpc.api import Client
 
 class RPC:

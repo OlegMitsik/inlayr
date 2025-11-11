@@ -19,7 +19,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries",
   "Typing :: Typed"
 ]
-dependencies = ["requests", "frozendict", "PyYAML"]
+dependencies = ["requests", "frozendict", "PyYAML", "urllib3"]
 
 [project.urls]
 Homepage = "https://github.com/OlegMitsik/inlayr"
