@@ -8,9 +8,8 @@ Dependencies
 
 from __future__ import annotations
 
-from ..utils.constants import ConstDict
+from ..utils.validation import validate_chain_id
 
-import requests, json
 from web3 import Web3, HTTPProvider
 
 class RPC:
@@ -57,6 +56,8 @@ class RPC:
             999: "hyperliquid",
             130: "unichain",
         }
+
+        validate_chain_id(chain_id, self.chain_dict)
 
         self.rpc_url = f"https://1rpc.io/{self.chain_dict[chain_id]}"
         self.chain_id = chain_id

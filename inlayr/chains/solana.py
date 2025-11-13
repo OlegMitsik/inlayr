@@ -9,9 +9,7 @@ Dependencies
 
 from __future__ import annotations
 
-from ..utils.constants import ConstDict
-
-import base58, base64
+import base58
 
 from solana.rpc.api import types
 

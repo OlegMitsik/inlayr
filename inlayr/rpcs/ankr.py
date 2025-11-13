@@ -8,8 +8,7 @@ Dependencies
 
 from __future__ import annotations
 
-from ..utils.constants import ConstDict  # kept for parity with other connectors
-
+from ..utils.validation import validate_chain_id
 from web3 import Web3, HTTPProvider
 
 class RPC:
@@ -40,8 +39,7 @@ class RPC:
             1666600000: "harmony",
         }
 
-        if self.chain_id not in self.chain_dict.keys():
-            raise KeyError(f"Chain ID {self.chain_id} is not configured for ankr rpc")
+        validate_chain_id(self.chain_id, self.chain_dict)
 
         self.rpc_url = f"https://rpc.ankr.com/{self.chain_dict[self.chain_id]}/{self.api_key}"
 

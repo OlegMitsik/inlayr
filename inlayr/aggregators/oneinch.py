@@ -9,13 +9,12 @@ Dependencies
 
 from __future__ import annotations
 
-from ..utils.constants import ConstDict
+from ..utils.http import create_session_with_retries, DEFAULT_TIMEOUT
 
-import requests, json
-from web3 import Web3, HTTPProvider
+from web3 import Web3
 
 class Aggregator:
-    def __init__(self, headers: dict = {}):
+    def __init__(self, headers: dict = {}, timeout: int = DEFAULT_TIMEOUT):
         self.name = "1inch"
 
         self.quote_api = "https://api.1inch.dev/swap/v6.1/{chain}/swap"
@@ -23,7 +22,8 @@ class Aggregator:
 
         self.spender = "0x111111125421cA6dC452d289314280a0f8842a65"
 
-        self.session = requests.Session()
+        self.session = create_session_with_retries(timeout=timeout)
+        self.timeout = timeout
         self.headers = headers
 
     def get_quote(self, **kwargs):
@@ -45,7 +45,13 @@ class Aggregator:
             params["slippage"] = kwargs.get("slippage") / 100
 
         url = self.quote_api.format(chain = chain_id)
-        response = self.session.get(url, params = params, headers = self.headers)
+        response = self.session.get(
+            url, 
+            params=params, 
+            headers=self.headers,
+            timeout=self.timeout
+        )
+        response.raise_for_status()
 
         return response.json()
 

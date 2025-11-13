@@ -10,9 +10,6 @@ Dependencies
 
 from __future__ import annotations
 
-from ..utils.constants import ConstDict
-
-import requests, json
 from web3 import Web3, HTTPProvider
 
 from eth_account import Account
