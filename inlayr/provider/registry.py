@@ -11,29 +11,38 @@ Required modules
 from __future__ import annotations
 
 from importlib import import_module
-from typing import Any, Type
+from types import ModuleType
+from typing import Any, Dict, Optional, Type
 
-def _imp(relpath: str):
+def _imp(relpath: str) -> ModuleType:
     """
     Import *relative to* this package
     """
     return import_module(relpath, __package__)
 
-def _import_provider_module():               return _imp("..provider.provider")
+def _import_provider_module() -> ModuleType:               return _imp("..provider.provider")
 
-def _import_chain_module(chain: str):        return _imp(f"..chains.{chain}")
-def _import_rpc_module(rpc: str):            return _imp(f"..rpcs.{rpc}")
-def _import_aggregator_module(agg: str):     return _imp(f"..aggregators.{agg}")
+def _import_chain_module(chain: str) -> ModuleType:        return _imp(f"..chains.{chain}")
+def _import_rpc_module(rpc: str) -> ModuleType:            return _imp(f"..rpcs.{rpc}")
+def _import_aggregator_module(agg: str) -> ModuleType:     return _imp(f"..aggregators.{agg}")
 
-def _require_named_class(mod, name: str) -> type:
+def _require_named_class(mod: ModuleType, name: str) -> Type[Any]:
     cls = getattr(mod, name, None)
-    
+
     if not isinstance(cls, type):
         raise ImportError(f"{mod.__name__} must define class '{name}'")
 
     return cls
 
-def get_provider(chain: str, rpc: str, aggregator: str, *, chain_params: dict = {}, rpc_params: dict = {}, aggregator_params: dict = {}):
+def get_provider(
+    chain: str,
+    rpc: str,
+    aggregator: str,
+    *,
+    chain_params: Optional[Dict[str, Any]] = None,
+    rpc_params: Optional[Dict[str, Any]] = None,
+    aggregator_params: Optional[Dict[str, Any]] = None,
+):
     """
     Composes provider instance.
 
@@ -48,6 +57,11 @@ def get_provider(chain: str, rpc: str, aggregator: str, *, chain_params: dict = 
         raise ValueError("rpc module name is required")
     if not aggregator:
         raise ValueError("aggregator module name is required")
+
+    # Resolve configuration dictionaries, avoiding shared mutable defaults
+    chain_params = chain_params or {}
+    rpc_params = rpc_params or {}
+    aggregator_params = aggregator_params or {}
 
     # Load classes
     provider_mod  = _import_provider_module()
