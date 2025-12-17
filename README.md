@@ -2,7 +2,7 @@
 
 _A modular, chain‑agnostic SDK for building and integrating crypto quoting and trading flows on DEXs._
 
-> **Status:** Experimental (v0.1.21). APIs may change before 1.0.
+> **Status:** Experimental (v0.2.1). APIs may change before 1.0.
 
 [![PyPI](https://img.shields.io/pypi/v/inlayr.svg)](https://pypi.org/project/inlayr/)
 [![Python](https://img.shields.io/pypi/pyversions/inlayr.svg)](https://pypi.org/project/inlayr/)
