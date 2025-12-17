@@ -2,7 +2,7 @@
 
 All notable changes to **inlayr** will be documented in this file.
 
-## [Unreleased]
+## [0.2.1] - 2025-12-17
 
 ### Added
 - Comprehensive input validation utilities (`ValidationError`, `validate_token_address`, `validate_amount`, `validate_slippage`, `validate_chain_id`)
@@ -30,10 +30,10 @@ All notable changes to **inlayr** will be documented in this file.
 - Valid TOML in `pyproject.toml` (no duplicate tables or placeholders)
 - Long description will render on PyPI via non-empty `README.md`
 
-## [0.1.0] - 2025-10-08
-## [0.1.1] - 2025-10-19
-## [0.1.2] - 2025-10-20
 ## [0.1.21] - 2025-10-21
+## [0.1.2] - 2025-10-20
+## [0.1.1] - 2025-10-19
+## [0.1.0] - 2025-10-08
 
 ### Added
 - First public release of **inlayr**.
